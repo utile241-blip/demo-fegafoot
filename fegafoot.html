@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEGAFOOT — Fédération Gabonaise de Football</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green: #009A44;
+            --yellow: #FCD116;
+            --blue: #3A75C4;
+            --dark-blue: #1a365d;
+            --black: #0d1117;
+            --dark-gray: #1e2530;
+            --white: #ffffff;
+            --off-white: #f7f9fc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: var(--black);
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .top-bar-left {
+            display: flex;
+            gap: 25px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .top-bar-left a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .top-bar-left a:hover {
+            color: var(--yellow);
+        }
+
+        .top-bar-left svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .top-bar-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        .top-bar-right a {
+            width: 28px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .top-bar-right a:hover {
+            background: var(--green);
+        }
+
+        .top-bar-right svg {
+            width: 14px;
+            height: 14px;
+            fill: white;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 0;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text strong {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--green);
+            letter-spacing: 1px;
+        }
+
+        .logo-text span {
+            font-size: 0.7rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 28px 12px;
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            transition: all 0.3s;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--green);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--green);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 80%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--green), #007a36);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-left: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 154, 68, 0.3);
+            white-space: nowrap;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 154, 68, 0.4);
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 26px;
+            height: 18px;
+            cursor: pointer;
+            padding: 0;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--black);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: 80px 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: heroSlide 24s infinite;
+        }
+
+        .hero-slide:nth-child(1) {
+            background-image: url('images/hero.jpg');
+            animation-delay: 0s;
+        }
+
+        .hero-slide:nth-child(2) {
+            background-image: url('images/auba.jpg');
+            animation-delay: 6s;
+        }
+
+        .hero-slide:nth-child(3) {
+            background-image: url('images/teamgabon.jfif');
+            animation-delay: 12s;
+        }
+
+        .hero-slide:nth-child(4) {
+            background-image: url('images/gabon-bailando.jpg');
+            animation-delay: 18s;
+        }
+
+        @keyframes heroSlide {
+            0% {
+                opacity: 0;
+                transform: scale(1.15) translateX(3%);
+            }
+            4% {
+                opacity: 1;
+            }
+            25% {
+                opacity: 1;
+                transform: scale(1.08) translateX(-3%);
+            }
+            29% {
+                opacity: 0;
+                transform: scale(1.08) translateX(-3%);
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.4));
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(to top, var(--off-white), transparent);
+            z-index: 2;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            z-index: 3;
+            animation: fadeInUp 1s ease;
+            position: relative;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(252, 209, 22, 0.2);
+            border: 1px solid var(--yellow);
+            padding: 8px 18px;
+            border-radius: 5px;
+            color: var(--yellow);
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 span {
+            color: var(--yellow);
+        }
+
+        .hero-text {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 35px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: white;
+            box-shadow: 0 5px 20px rgba(0, 154, 68, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #007a36;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--black);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: white;
+            padding: 0 5%;
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stats-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 35px 20px;
+            border-right: 1px solid var(--light-gray);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--green);
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.8rem;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(0, 154, 68, 0.1);
+            color: var(--green);
+            padding: 6px 18px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--black);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .section-title span {
+            color: var(--green);
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* About Section */
+        .about-section {
+            background: var(--off-white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 100%;
+            height: 100%;
+            border: 4px solid var(--green);
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--black);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .about-content h2 span {
+            color: var(--green);
+        }
+
+        .about-content p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .about-feature-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--green), #007a36);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .about-feature-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
+        }
+
+        .about-feature span {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+        }
+
+        /* President Section */
+        .president-section {
+            background: linear-gradient(135deg, var(--dark-blue), var(--black));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .president-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .president-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .president-image {
+            position: relative;
+        }
+
+        .president-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .president-badge {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--yellow);
+            color: var(--black);
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .president-content {
+            color: white;
+        }
+
+        .president-content .section-badge {
+            background: rgba(252, 209, 22, 0.2);
+            color: var(--yellow);
+        }
+
+        .president-content h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .president-quote {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 30px;
+            font-style: italic;
+            position: relative;
+            padding-left: 25px;
+            border-left: 4px solid var(--yellow);
+        }
+
+        .president-name {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--yellow);
+        }
+
+        .president-role {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Missions Section */
+        .missions-section {
+            background: var(--off-white);
+        }
+
+        .missions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .mission-card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--green), var(--yellow));
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .mission-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .mission-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--green), #007a36);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transition: all 0.4s;
+        }
+
+        .mission-card:hover .mission-icon {
+            transform: scale(1.1);
+        }
+
+        .mission-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        .mission-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .mission-text {
+            color: var(--gray);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* News Section */
+        .news-section {
+            background: white;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .news-image {
+            height: 180px;
+            background: linear-gradient(135deg, var(--green), var(--dark-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='m0 40 40-40h-40z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .news-image svg {
+            width: 50px;
+            height: 50px;
+            fill: rgba(255, 255, 255, 0.3);
+        }
+
+        .news-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--yellow);
+            color: var(--black);
+            padding: 5px 12px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .news-body {
+            padding: 25px;
+        }
+
+        .news-date {
+            color: var(--gray);
+            font-size: 0.75rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .news-date svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--gray);
+        }
+
+        .news-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .news-excerpt {
+            color: var(--gray);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .news-link {
+            color: var(--green);
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s;
+        }
+
+        .news-link:hover {
+            gap: 12px;
+        }
+
+        .news-link svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--green);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--off-white);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--black);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .contact-info > p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--green), #007a36);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
+        }
+
+        .contact-item-text h4 {
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .contact-item-text span,
+        .contact-item-text a {
+            color: var(--gray);
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .contact-item-text a:hover {
+            color: var(--green);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-form h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.3s;
+            background: var(--off-white);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--green);
+            background: white;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--green), #007a36);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0, 154, 68, 0.3);
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 154, 68, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: white;
+            padding: 60px 5% 25px;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-brand img {
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: var(--green);
+        }
+
+        .footer-social svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--yellow);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        .footer-flags {
+            display: flex;
+            gap: 8px;
+        }
+
+        .footer-flag {
+            width: 30px;
+            height: 20px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .flag-gabon {
+            background: linear-gradient(to bottom, var(--green) 33.33%, var(--yellow) 33.33%, var(--yellow) 66.66%, var(--blue) 66.66%);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav-container {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                max-width: 320px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                padding: 100px 30px 40px;
+                transition: right 0.4s;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-container.active {
+                right: 0;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-links a {
+                padding: 15px 0;
+                border-bottom: 1px solid var(--light-gray);
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
+            .nav-cta {
+                margin: 20px 0 0 0;
+                text-align: center;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .president-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .president-image {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .president-quote {
+                border-left: none;
+                padding-left: 0;
+                border-top: 4px solid var(--yellow);
+                padding-top: 25px;
+            }
+
+            .missions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-bar {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image::before {
+                display: none;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 60px 5%;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .missions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <a href="mailto:contact@fegafoot.ga">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                contact@fegafoot.ga
+            </a>
+            <a href="tel:+24177000000">
+                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                +241 77 00 00 00
+            </a>
+            <span>
+                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                Libreville, Gabon
+            </span>
+        </div>
+        <div class="top-bar-right">
+            <a href="#" aria-label="Facebook">
+                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" aria-label="YouTube">
+                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/Logo_FEGAFOOT.png" alt="FEGAFOOT">
+            <div class="logo-text">
+                <strong>FEGAFOOT</strong>
+                <span>Fédération Gabonaise de Football</span>
+            </div>
+        </div>
+        <div class="nav-container" id="navContainer">
+            <ul class="nav-links">
+                <li><a href="#accueil" class="active">Accueil</a></li>
+                <li><a href="#federation">La Fédération</a></li>
+                <li><a href="#president">Présidence</a></li>
+                <li><a href="#missions">Missions</a></li>
+                <li><a href="#actualites">Actualités</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta">Nous Contacter</a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="hero-slider">
+            <div class="hero-slide"></div>
+            <div class="hero-slide"></div>
+            <div class="hero-slide"></div>
+            <div class="hero-slide"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">Bienvenue sur le site officiel</div>
+            <h1>Fédération <span>Gabonaise</span> de Football</h1>
+            <p class="hero-text">Depuis 1962, nous œuvrons au développement et à la promotion du football gabonais. Unis pour porter haut les couleurs de notre nation sur la scène internationale.</p>
+            <div class="hero-buttons">
+                <a href="#federation" class="btn btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    Découvrir la FEGAFOOT
+                </a>
+                <a href="#actualites" class="btn btn-secondary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                    Actualités
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stats-container">
+            <div class="stat-item animate-on-scroll">
+                <span class="stat-number">1962</span>
+                <span class="stat-label">Année de création</span>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <span class="stat-number">14</span>
+                <span class="stat-label">Ligues provinciales</span>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <span class="stat-number">200+</span>
+                <span class="stat-label">Clubs affiliés</span>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <span class="stat-number">50K+</span>
+                <span class="stat-label">Licenciés</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="about-section" id="federation">
+        <div class="about-grid">
+            <div class="about-image animate-on-scroll">
+                <img src="images/teamgabon.jfif" alt="Équipe nationale du Gabon">
+            </div>
+            <div class="about-content animate-on-scroll">
+                <span class="section-badge">Qui sommes-nous</span>
+                <h2>La <span>FEGAFOOT</span> au cœur du football gabonais</h2>
+                <p>La Fédération Gabonaise de Football (FEGAFOOT) est l'instance dirigeante du football au Gabon. Fondée en 1962, elle est affiliée à la FIFA et à la CAF.</p>
+                <p>Notre mission est de développer, organiser et promouvoir le football sous toutes ses formes sur l'ensemble du territoire national, des catégories de jeunes jusqu'aux équipes nationales.</p>
+                <div class="about-features">
+                    <div class="about-feature">
+                        <div class="about-feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                        <span>Membre FIFA</span>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                        <span>Membre CAF</span>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                        <span>Membre UNIFFAC</span>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                        <span>Depuis 1962</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- President Section -->
+    <section class="president-section" id="president">
+        <div class="president-grid">
+            <div class="president-image animate-on-scroll">
+                <img src="images/presidentfegafoot.avif" alt="Président de la FEGAFOOT">
+                <div class="president-badge">Président</div>
+            </div>
+            <div class="president-content animate-on-scroll">
+                <span class="section-badge">Mot du Président</span>
+                <h2>Une vision pour le football gabonais</h2>
+                <p class="president-quote">
+                    « Notre ambition est de faire du football gabonais une référence en Afrique. Cela passe par la formation de nos jeunes talents, le développement des infrastructures et le renforcement de nos compétitions nationales. Ensemble, portons haut les couleurs des Panthères ! »
+                </p>
+                <p class="president-name">Pierre-Alain MOUNGUENGUI</p>
+                <p class="president-role">Président de la FEGAFOOT</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Missions Section -->
+    <section class="missions-section" id="missions">
+        <div class="section-header animate-on-scroll">
+            <span class="section-badge">Nos engagements</span>
+            <h2 class="section-title">Les <span>missions</span> de la FEGAFOOT</h2>
+            <p class="section-subtitle">Au service du football gabonais et de son rayonnement international.</p>
+        </div>
+        <div class="missions-grid">
+            <div class="mission-card animate-on-scroll">
+                <div class="mission-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                </div>
+                <h3 class="mission-title">Rayonnement international</h3>
+                <p class="mission-text">Représenter le Gabon dans les instances internationales du football (FIFA, CAF, UNIFFAC).</p>
+            </div>
+            <div class="mission-card animate-on-scroll">
+                <div class="mission-icon">
+                    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                </div>
+                <h3 class="mission-title">Formation des jeunes</h3>
+                <p class="mission-text">Développer les centres de formation et détecter les futurs talents du football gabonais.</p>
+            </div>
+            <div class="mission-card animate-on-scroll">
+                <div class="mission-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                </div>
+                <h3 class="mission-title">Compétitions nationales</h3>
+                <p class="mission-text">Organiser et gérer les championnats nationaux (D1, D2, Coupe du Gabon).</p>
+            </div>
+            <div class="mission-card animate-on-scroll">
+                <div class="mission-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                </div>
+                <h3 class="mission-title">Équipes nationales</h3>
+                <p class="mission-text">Encadrer et accompagner les équipes nationales (Panthères, U23, U20, U17, féminines).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section" id="actualites">
+        <div class="section-header animate-on-scroll">
+            <span class="section-badge">Actualités</span>
+            <h2 class="section-title">Les dernières <span>informations</span></h2>
+            <p class="section-subtitle">Suivez toute l'actualité du football gabonais et de nos équipes nationales.</p>
+        </div>
+        <div class="news-grid">
+            <div class="news-card animate-on-scroll">
+                <div class="news-image">
+                    <span class="news-category">Équipe nationale</span>
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                </div>
+                <div class="news-body">
+                    <div class="news-date">
+                        <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                        15 Février 2026
+                    </div>
+                    <h3 class="news-title">Les Panthères en stage de préparation à Libreville</h3>
+                    <p class="news-excerpt">L'équipe nationale entame sa préparation en vue des prochaines échéances internationales...</p>
+                    <a href="#" class="news-link">
+                        Lire la suite
+                        <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="news-card animate-on-scroll">
+                <div class="news-image">
+                    <span class="news-category">Championnat</span>
+                    <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
+                </div>
+                <div class="news-body">
+                    <div class="news-date">
+                        <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                        12 Février 2026
+                    </div>
+                    <h3 class="news-title">Reprise du championnat national D1 Gabon</h3>
+                    <p class="news-excerpt">La saison 2025-2026 reprend avec de nouveaux enjeux pour les clubs gabonais...</p>
+                    <a href="#" class="news-link">
+                        Lire la suite
+                        <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="news-card animate-on-scroll">
+                <div class="news-image">
+                    <span class="news-category">Formation</span>
+                    <svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+                </div>
+                <div class="news-body">
+                    <div class="news-date">
+                        <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                        8 Février 2026
+                    </div>
+                    <h3 class="news-title">Ouverture d'un nouveau centre de formation</h3>
+                    <p class="news-excerpt">La FEGAFOOT inaugure un nouveau centre dédié à la détection des jeunes talents...</p>
+                    <a href="#" class="news-link">
+                        Lire la suite
+                        <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-grid">
+            <div class="contact-info animate-on-scroll">
+                <h3>Contactez-nous</h3>
+                <p>Pour toute demande d'information, partenariat ou question relative au football gabonais, notre équipe reste à votre entière disposition.</p>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </div>
+                    <div class="contact-item-text">
+                        <h4>Siège social</h4>
+                        <span>Centre Technique National<br>Libreville, Gabon</span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    </div>
+                    <div class="contact-item-text">
+                        <h4>Téléphone</h4>
+                        <span><a href="tel:+24177000000">+241 77 00 00 00</a></span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </div>
+                    <div class="contact-item-text">
+                        <h4>Email</h4>
+                        <span><a href="mailto:contact@fegafoot.ga">contact@fegafoot.ga</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form animate-on-scroll">
+                <h3>Envoyer un message</h3>
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Nom complet *</label>
+                            <input type="text" id="name" placeholder="Votre nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" placeholder="votre@email.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Objet</label>
+                        <select id="subject">
+                            <option value="">Sélectionnez un sujet</option>
+                            <option value="info">Demande d'information</option>
+                            <option value="partenariat">Partenariat</option>
+                            <option value="presse">Presse / Média</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" placeholder="Votre message..." required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Envoyer le message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <img src="images/Logo_FEGAFOOT.png" alt="FEGAFOOT">
+                <p>La Fédération Gabonaise de Football œuvre depuis 1962 au développement et à la promotion du football dans notre nation. Ensemble, portons haut les couleurs des Panthères !</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#federation">La Fédération</a></li>
+                    <li><a href="#president">Présidence</a></li>
+                    <li><a href="#missions">Missions</a></li>
+                    <li><a href="#actualites">Actualités</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Compétitions</h4>
+                <ul>
+                    <li><a href="#">Championnat D1</a></li>
+                    <li><a href="#">Championnat D2</a></li>
+                    <li><a href="#">Coupe du Gabon</a></li>
+                    <li><a href="#">Supercoupe</a></li>
+                    <li><a href="#">Football féminin</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Équipes nationales</h4>
+                <ul>
+                    <li><a href="#">Panthères (A)</a></li>
+                    <li><a href="#">Panthères U23</a></li>
+                    <li><a href="#">Panthères U20</a></li>
+                    <li><a href="#">Panthères U17</a></li>
+                    <li><a href="#">Équipe féminine</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 FEGAFOOT - Fédération Gabonaise de Football. Tous droits réservés.</p>
+            <div class="footer-flags">
+                <div class="footer-flag flag-gabon"></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const navContainer = document.getElementById('navContainer');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navContainer.classList.toggle('active');
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navContainer.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Animate on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
+            this.reset();
+        });
+
+        // Staggered animations
+        document.querySelectorAll('.mission-card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        document.querySelectorAll('.news-card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        document.querySelectorAll('.stat-item').forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.1}s`;
+        });
+    </script>
+</body>
+</html>
